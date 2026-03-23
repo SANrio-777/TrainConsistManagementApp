@@ -1,36 +1,31 @@
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 public class TrainConsistManagementApp {
     public static void main(String[] args) {
 
-        System.out.println("======================================");
-        System.out.println(" UC4 - Maintian Ordered Bogie Consist");
-        System.out.println("======================================");
+        System.out.println("==========================================");
+        System.out.println(" UC4 - Preserve Insertion Order of Bogies");
+        System.out.println("==========================================");
 
         // Initialize passengerBogies
-        LinkedList<String> train = new LinkedList<>();
+        Set<String> trainFormation = new LinkedHashSet<>();
 
         // Add Bogie IDs
-        train.add("Engine");
-        train.add("Sleeper");
-        train.add("AC");
-        train.add("Cargo");
-        train.add("Guard");
+        trainFormation.add("Engine");
+        trainFormation.add("Sleeper");
+        trainFormation.add("Cargo");
+        trainFormation.add("Guard");
 
-        System.out.println("\nInitial Train Consist:");
-        System.out.println(train);
+        // Attempt to add duplicate
+        trainFormation.add("Sleeper");
 
-        // Insert Pantry Car at position 2
-        train.add(2, "Pantry");
+        // Display final formation
+        System.out.println("\nFinal Train Formation (Ordered & Unique):");
+        System.out.println(trainFormation);
 
-        System.out.println("\nAfter inserting 'Pantry Car' at position 2:");
-        System.out.println(train);
+        System.out.println("\nNote:\nLinkedHashSet preserves insertion order and removes duplicates automatically.");
+        System.out.println("\nUC5 formation setup completed...");
 
-        // Remove first and Last Bogie
-        train.removeFirst();
-        train.removeLast();
-        System.out.println("\nAfter Removing first and Last Bogie:");
-        System.out.println(train);
-
-        System.out.println("\nUC4 ordered consist operations completed...");
     }
 }
