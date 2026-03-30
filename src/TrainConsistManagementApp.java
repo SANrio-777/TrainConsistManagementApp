@@ -1,57 +1,68 @@
 package TrainConsistManagementApp.src;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
-class GoodsBogie {
-    String type;
-    String cargo;
-    public GoodsBogie(String type, String cargo) {
-        this.type = type;
-        this.cargo = cargo;
+class Bogie {
+    String name;
+    int capacity;
+
+    public Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
     }
     @Override
     public String toString() {
-        return "Type: " + type + ", Cargo: " + cargo;
+        return name + " (" + capacity + ")";
     }
 }
 
 public class TrainConsistManagementApp {
     public static void main(String[] args) {
 
-        System.out.println("===============================================");
-        System.out.println("UC12 - Safety Compliance Check for Goods Bogies");
-        System.out.println("===============================================");
+        System.out.println("================================================");
+        System.out.println("UC13 - Performance Comparison (Loops vs Streams)");
+        System.out.println("================================================");
 
         // Create list of goods bogies
-        List<GoodsBogie> goodsBogies = new ArrayList<>();
-        goodsBogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
-        goodsBogies.add(new GoodsBogie("Open", "Coal"));
-        goodsBogies.add(new GoodsBogie("Box", "Grain"));
-        goodsBogies.add(new GoodsBogie("Cylindrical", "Coal"));
+        List<Bogie> bogies = Arrays.asList(
+                new Bogie("Sleeper", 72),
+                new Bogie("AC Chair", 56),
+                new Bogie("First Class", 80),
+                new Bogie("Sleeper", 72),
+                new Bogie("AC Chair", 56),
+                new Bogie("First Class", 80)
+        );
 
-        System.out.println("Goods Bogies in Train: ");
-        goodsBogies.forEach(System.out::println);
-        // Safety compliance check using allMatch
-        boolean isSafe = goodsBogies.stream()
-                .allMatch(bogie -> {
-                    if (bogie.type.equalsIgnoreCase("Cylindrical")) {
-                        return bogie.cargo.equalsIgnoreCase("Petroleum");
-                    }
-                    return true;
-                });
 
-        // Display validation result
+        long loopStart = System.nanoTime();
 
-        System.out.println("\nSafety Compliance Status : " + isSafe);
-        if (isSafe) {
-            System.out.println("Train formation is SAFE.");
-        } else {
-            System.out.println("Train formation is NOT SAFE.");
+        List<Bogie> loopFiltered = new ArrayList<>();
+        for (Bogie b : bogies) {
+            if (b.capacity > 60) {
+                loopFiltered.add(b);
+            }
         }
 
+        long loopEnd = System.nanoTime();
+        long loopTime = loopEnd - loopStart;
 
-        System.out.println("\nUC12 safety validation completed...");
+        System.out.println("\nLoop execution time (ns): " + loopTime);
 
+        // ----------------- Stream-Based Filtering -----------------
+        long streamStart = System.nanoTime();
+
+        List<Bogie> streamFiltered = bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
+
+        long streamEnd = System.nanoTime();
+        long streamTime = streamEnd - streamStart;
+
+        System.out.println("Stream execution time (ns): " + streamTime);
+
+
+        System.out.println("\nUC13 performance benchmarking completed...");
     }
 }
