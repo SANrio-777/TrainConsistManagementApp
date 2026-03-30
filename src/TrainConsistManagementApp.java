@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 class Bogie {
     private String name;
@@ -19,39 +20,41 @@ class Bogie {
 
     @Override
     public String toString() {
-        return name + " - Capacity: " + capacity;
+        return name+ " - Capacity: " + capacity;
     }
 }
 
 public class TrainConsistManagementApp {
-
     public static void main(String[] args) {
 
-        System.out.println("==========================================");
-        System.out.println("UC7 - Sort Bogies by Capacity (Comparator)");
-        System.out.println("==========================================\n");
+        System.out.println("==================================");
+        System.out.println("UC8 - Filter Bogies Using Streams");
+        System.out.println("==================================");
 
-        // Step 1: Create List
+
+        // Create list
         List<Bogie> bogies = new ArrayList<>();
-
-        // Step 2: Add Passenger Bogies
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 56));
         bogies.add(new Bogie("First Class", 24));
         bogies.add(new Bogie("General", 90));
-        // Display the unsorted bogies
-        System.out.println("Before Sorting:");
-        for (Bogie b : bogies) {
-            System.out.println(b);
-        }
-        // Step 3: Sort using Comparator (ascending order)
-        bogies.sort(Comparator.comparingInt(Bogie::getCapacity));
 
-        // Step 4: Display Sorted Bogies
-        System.out.println("\nAfter Sorting by Capacity:");
+        // Filter using Stream (capacity > 60)
+        List<Bogie> filteredBogies = bogies.stream()
+                .filter(b -> b.getCapacity() > 60)
+                .collect(Collectors.toList());
+
+        // Show original list (to prove it's unchanged)
+        System.out.println("\nAll Bogies:");
         for (Bogie b : bogies) {
             System.out.println(b);
         }
 
+        // Display filtered bogies
+        System.out.println("\nFiltered Bogies (Capacity > 60):");
+        for (Bogie b : filteredBogies) {
+            System.out.println(b);
+        }
+        System.out.println("\nUC8 filtering completed...");
     }
 }
