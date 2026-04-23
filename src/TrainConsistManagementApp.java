@@ -1,40 +1,68 @@
-package TrainConsistManagementApp.src;/*
- * UC17 - Sort Bogie Names Using Arrays.sort()
- * Train Consist Management App
- */
+import java.util.*;
+import java.util.stream.Collectors;
 
-import java.util.Arrays;
+class Bogie {
+    private String name;
+    private int capacity;
+
+    public Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    @Override
+    public String toString() {
+        return name+ " - Capacity: " + capacity;
+    }
+}
 
 public class TrainConsistManagementApp {
-
     public static void main(String[] args) {
 
-        System.out.println("============================================");
-        System.out.println("UC17 - Sort Bogie Names Using Arrays.sort()");
-        System.out.println("============================================");
-        System.out.println();
+        System.out.println("==================================");
+        System.out.println("UC9 - Group Bogies by Type ");
+        System.out.println("==================================");
 
-        // User provides bogie type names
-        String[] bogieNames = {
-                "Sleeper",
-                "AC Chair",
-                "First Class",
-                "General",
-                "Luxury"
-        };
 
-        // Display original array
-        System.out.println("Original Bogie Names:");
-        System.out.println(Arrays.toString(bogieNames));
-        System.out.println();
+        // Create list
+        List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 56));
+        bogies.add(new Bogie("First Class", 24));
+        bogies.add(new Bogie("Sleeper", 70));
+        bogies.add(new Bogie("AC Chair", 60)); // Duplicate
 
-        // Sorting using built-in method
-        Arrays.sort(bogieNames);
+        // Filter using Stream (capacity > 60)
+        List<Bogie> filteredBogies = bogies.stream()
+                .filter(b -> b.getCapacity() > 60)
+                .collect(Collectors.toList());
 
-        // Display sorted array
-        System.out.println("Sorted Bogie Names (Alphabetical):");
-        System.out.println(Arrays.toString(bogieNames));
+        // Show original list (to prove it's unchanged)
+        System.out.println("\nAll Bogies:");
+        for (Bogie b : bogies) {
+            System.out.println(b);
+        }
 
-        System.out.println("\nUC17 sorting completed successfully...");
+        // Group using Stream API
+        Map<String, List<Bogie>> groupedBogies = bogies.stream()
+                .collect(Collectors.groupingBy(Bogie::getName));
+
+        // Display grouped result
+        System.out.println("\nGrouped Bogies:");
+        for (Map.Entry<String, List<Bogie>> entry: groupedBogies.entrySet()) {
+            System.out.println("\nBogie Type: " + entry.getKey());
+            for (Bogie b : entry.getValue()) {
+                System.out.println("  " + b);
+            }
+        }
+        System.out.println("\nUC9 filtering completed...");
     }
 }
