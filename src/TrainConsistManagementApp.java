@@ -1,10 +1,16 @@
-package TrainConsistManagementApp.src;
-
 import java.util.Scanner;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 public class TrainConsistManagementApp {
+
+    // ✅ Validation methods INSIDE class
+    public static boolean isValidTrainId(String trainId) {
+        return trainId != null && trainId.matches("^TRN-\\d{4}$");
+    }
+
+    public static boolean isValidCargoCode(String cargoCode) {
+        return cargoCode != null && cargoCode.matches("^PET-[A-Z]{2}$");
+    }
+
     public static void main(String[] args) {
 
         System.out.println("==========================================");
@@ -13,25 +19,21 @@ public class TrainConsistManagementApp {
 
         Scanner scanner = new Scanner(System.in);
 
-        // Read user input
-        System.out.println("Enter Train ID (Format: TRN-1234): ");
+        // Input
+        System.out.print("Enter Train ID (Format: TRN-1234): ");
         String trainID = scanner.nextLine();
 
-        System.out.println("Enter Cargo Code (Format: PET-AB");
+        System.out.print("Enter Cargo Code (Format: PET-AB): ");
         String cargoCode = scanner.nextLine();
 
-        // Define regex patterns
-        String trainIDPattern = "TRN-\\d{4}";
-        String cargoCodePattern = "PET-[A-Z]{2}";
+        // ✅ Use your methods
+        boolean isTrainValid = isValidTrainId(trainID);
+        boolean isCargoValid = isValidCargoCode(cargoCode);
 
-        // Validate
-        boolean isTrainPattern = Pattern.matches(trainIDPattern, trainID);
-        boolean isCargoCodeValid = Pattern.matches(cargoCodePattern, cargoCode);
-
-        // Display validation result
-        System.out.println("Validation Results:");
-        System.out.println("Train ID valid: " + isTrainPattern);
-        System.out.println("Cargo code valid: " + isCargoCodeValid);
+        // Output
+        System.out.println("\nValidation Results:");
+        System.out.println("Train ID valid: " + isTrainValid);
+        System.out.println("Cargo Code valid: " + isCargoValid);
 
         System.out.println("\nUC11 validation completed...");
 
