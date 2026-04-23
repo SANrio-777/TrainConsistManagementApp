@@ -1,5 +1,3 @@
-package TrainConsistManagementApp.src;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -54,5 +52,11 @@ public class TrainConsistManagementApp {
         // Display result
         System.out.println("\nTotal Seating Capacity: " + totalSeats);
         System.out.println("\nUC10 aggregation completed...");
+    }
+
+    public static int getTotalCapacity(List<Bogie> bogies) {
+        return bogies.stream()
+                .map(Bogie::getCapacity)
+                .reduce(0, Integer::sum);
     }
 }
