@@ -57,4 +57,10 @@ public class TrainConsistManagementApp {
         }
         System.out.println("\nUC8 filtering completed...");
     }
+
+    public static List<Bogie> filterBogies(List<Bogie> bogies, int threshold) {
+        return bogies.stream()
+                .filter(b -> b.getCapacity() > threshold)
+                .collect(Collectors.toList());
+    }
 }
