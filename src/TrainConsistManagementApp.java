@@ -1,5 +1,3 @@
-package TrainConsistManagementApp.src;
-
 import java.util.ArrayList;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,6 +17,35 @@ class Bogie {
 }
 
 public class TrainConsistManagementApp {
+    public static List<Bogie> filterWithLoop(List<Bogie> bogies) {
+        List<Bogie> result = new ArrayList<>();
+        for (Bogie b : bogies) {
+            if (b.capacity > 60) {
+                result.add(b);
+            }
+        }
+        return result;
+    }
+
+    public static List<Bogie> filterWithStream(List<Bogie> bogies) {
+        return bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
+    }
+
+    public static long measureLoopTime(List<Bogie> bogies) {
+        long start = System.nanoTime();
+        filterWithLoop(bogies);
+        long end = System.nanoTime();
+        return end - start;
+    }
+
+    public static long measureStreamTime(List<Bogie> bogies) {
+        long start = System.nanoTime();
+        filterWithStream(bogies);
+        long end = System.nanoTime();
+        return end - start;
+    }
     public static void main(String[] args) {
 
         System.out.println("================================================");
