@@ -1,15 +1,15 @@
-package TrainConsistManagementApp.src;
-
 import java.util.ArrayList;
 import java.util.List;
 
 class GoodsBogie {
     String type;
     String cargo;
+
     public GoodsBogie(String type, String cargo) {
         this.type = type;
         this.cargo = cargo;
     }
+
     @Override
     public String toString() {
         return "Type: " + type + ", Cargo: " + cargo;
@@ -17,6 +17,18 @@ class GoodsBogie {
 }
 
 public class TrainConsistManagementApp {
+
+    // ✅ Extracted method (for testing)
+    public static boolean isTrainSafe(List<GoodsBogie> goodsBogies) {
+        return goodsBogies.stream()
+                .allMatch(bogie -> {
+                    if (bogie.type.equalsIgnoreCase("Cylindrical")) {
+                        return bogie.cargo.equalsIgnoreCase("Petroleum");
+                    }
+                    return true;
+                });
+    }
+
     public static void main(String[] args) {
 
         System.out.println("===============================================");
@@ -32,17 +44,11 @@ public class TrainConsistManagementApp {
 
         System.out.println("Goods Bogies in Train: ");
         goodsBogies.forEach(System.out::println);
-        // Safety compliance check using allMatch
-        boolean isSafe = goodsBogies.stream()
-                .allMatch(bogie -> {
-                    if (bogie.type.equalsIgnoreCase("Cylindrical")) {
-                        return bogie.cargo.equalsIgnoreCase("Petroleum");
-                    }
-                    return true;
-                });
 
-        // Display validation result
+        // ✅ SAME LOGIC, just calling method
+        boolean isSafe = isTrainSafe(goodsBogies);
 
+        // Display validation result (UNCHANGED OUTPUT)
         System.out.println("\nSafety Compliance Status : " + isSafe);
         if (isSafe) {
             System.out.println("Train formation is SAFE.");
@@ -50,8 +56,6 @@ public class TrainConsistManagementApp {
             System.out.println("Train formation is NOT SAFE.");
         }
 
-
         System.out.println("\nUC12 safety validation completed...");
-
     }
 }
