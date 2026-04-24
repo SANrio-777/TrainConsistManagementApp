@@ -1,40 +1,44 @@
-package TrainConsistManagementApp.src;/*
- * UC17 - Sort Bogie Names Using Arrays.sort()
- * Train Consist Management App
- */
-
 import java.util.Arrays;
 
 public class TrainConsistManagementApp {
 
+    public static boolean searchBogie(String[] bogieIds, String key) {
+
+        // Traverse array
+        for (String id : bogieIds) {
+
+            // Compare using equals()
+            if (id.equals(key)) {
+                return true; // Match found → stop early
+            }
+        }
+
+        return false; // No match found
+    }
+
     public static void main(String[] args) {
 
-        System.out.println("============================================");
-        System.out.println("UC17 - Sort Bogie Names Using Arrays.sort()");
-        System.out.println("============================================");
-        System.out.println();
+        System.out.println("=====================================");
+        System.out.println("UC18 - Linear Search for Bogie ID");
+        System.out.println("=====================================\n");
 
-        // User provides bogie type names
-        String[] bogieNames = {
-                "Sleeper",
-                "AC Chair",
-                "First Class",
-                "General",
-                "Luxury"
-        };
+        // Sample bogie IDs (unsorted)
+        String[] bogieIds = {"BG101","BG205","BG309","BG412","BG550"};
+        System.out.println("Available Bogie IDs: \n");
+        System.out.println(Arrays.toString(bogieIds));
 
-        // Display original array
-        System.out.println("Original Bogie Names:");
-        System.out.println(Arrays.toString(bogieNames));
-        System.out.println();
+        String searchKey = "BG309";
 
-        // Sorting using built-in method
-        Arrays.sort(bogieNames);
+        System.out.println("Searching for Bogie ID: " + searchKey);
 
-        // Display sorted array
-        System.out.println("Sorted Bogie Names (Alphabetical):");
-        System.out.println(Arrays.toString(bogieNames));
+        boolean found = searchBogie(bogieIds, searchKey);
 
-        System.out.println("\nUC17 sorting completed successfully...");
+        if (found) {
+            System.out.println("Bogie found in the consist.");
+        } else {
+            System.out.println("Bogie not found.");
+        }
+
+        System.out.println("\nUC18 search completed...");
     }
 }
