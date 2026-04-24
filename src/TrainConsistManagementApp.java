@@ -1,5 +1,3 @@
-package TrainConsistManagementApp.src;
-
 class CargoSafetyException extends RuntimeException {
     public CargoSafetyException(String message) {
         super(message);
@@ -22,19 +20,20 @@ class GoodsBogie {
             validateCargo(cargoType);
             cargo = cargoType;
 
-            System.out.println(
-                    "Cargo assigned successfully -> " + cargoType
-            );
+            System.out.println("Cargo assigned successfully -> " + cargoType);
+
         } catch (CargoSafetyException e) {
             System.out.println("Error: Unsafe cargo assignment!");
+            throw e;
+
         } finally {
-            System.out.println(
-                    "Cargo validation completed for " + shape + " bogie"
-            );
+            System.out.println("Cargo validation completed for " + shape + " bogie");
             System.out.println();
         }
     }
-
+    public String getCargo() {
+        return cargo;
+    }
     private void validateCargo(String cargoType) {
 
         // Unsafe rule
