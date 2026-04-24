@@ -1,10 +1,37 @@
+public class TrainConsistManagementApp {
+
+    public static void main(String[] args) {
+
+        System.out.println("=====================================");
+        System.out.println("UC15 - Safe Cargo Assignment");
+        System.out.println("=====================================");
+        System.out.println();
+
+        GoodsBogie cylindrical = new GoodsBogie("Cylindrical");
+        GoodsBogie rectangular = new GoodsBogie("Rectangular");
+
+        // ✅ Safe assignment
+        cylindrical.assignCargo("Petroleum");
+
+        // ❌ Unsafe assignment (handled properly)
+        try {
+            rectangular.assignCargo("Petroleum");
+        } catch (CargoSafetyException e) {
+            System.out.println("Handled in main: " + e.getMessage());
+        }
+
+        System.out.println("UC15 runtime handling completed...");
+    }
+}
+
+// ✅ Custom Exception
 class CargoSafetyException extends RuntimeException {
     public CargoSafetyException(String message) {
         super(message);
     }
 }
 
-
+// ✅ Goods Bogie Class
 class GoodsBogie {
 
     private String shape;
@@ -31,37 +58,18 @@ class GoodsBogie {
             System.out.println();
         }
     }
+
     public String getCargo() {
         return cargo;
     }
+
     private void validateCargo(String cargoType) {
 
-        // Unsafe rule
-        if (shape.equals("Rectangular")
-                && cargoType.equalsIgnoreCase("Petroleum")) {
+
+        if ("Rectangular".equals(shape)
+                && "Petroleum".equalsIgnoreCase(cargoType)) {
 
             throw new CargoSafetyException("Unsafe cargo");
         }
-    }
-}
-public class TrainConsistManagementApp {
-
-    public static void main(String[] args) {
-
-        System.out.println("=====================================");
-        System.out.println("UC15 - Safe Cargo Assignment");
-        System.out.println("=====================================");
-        System.out.println();
-
-        GoodsBogie cylindrical = new GoodsBogie("Cylindrical");
-        GoodsBogie rectangular = new GoodsBogie("Rectangular");
-
-        // Safe assignment
-        cylindrical.assignCargo("Petroleum");
-
-        // Unsafe assignment
-        rectangular.assignCargo("Petroleum");
-
-        System.out.println("UC15 runtime handling completed...");
     }
 }
