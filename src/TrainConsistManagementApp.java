@@ -1,26 +1,28 @@
-package TrainConsistManagementApp.src;
-
 public class TrainConsistManagementApp {
 
     // Bubble Sort Method
     public static void bubbleSort(int[] capacities) {
 
         int n = capacities.length;
+        boolean swapped;
 
-        // Number of passes
         for (int i = 0; i < n - 1; i++) {
 
-            // Compare adjacent elements
+            swapped = false;
+
             for (int j = 0; j < n - i - 1; j++) {
 
-                // Swap if elements are out of order
                 if (capacities[j] > capacities[j + 1]) {
 
                     int temp = capacities[j];
                     capacities[j] = capacities[j + 1];
                     capacities[j + 1] = temp;
+
+                    swapped = true;
                 }
             }
+
+            if (!swapped) break;
         }
     }
 
@@ -37,19 +39,16 @@ public class TrainConsistManagementApp {
 
         System.out.println("=========================================");
         System.out.println("UC16 - Manual Sorting using Bubble Sort");
-        System.out.println("=========================================");
-        System.out.println();
+        System.out.println("=========================================\n");
 
-        // Passenger bogie capacities
         int[] capacities = {72, 56, 24, 70, 60};
 
-        System.out.print("Original Capacities: \n");
+        System.out.println("Original Capacities:");
         displayArray(capacities);
 
-        // Perform Bubble Sort
         bubbleSort(capacities);
 
-        System.out.print("\nSorted Capacities (Ascending):   \n");
+        System.out.println("\nSorted Capacities (Ascending):");
         displayArray(capacities);
 
         System.out.println("\nUC16 sorting completed...");
