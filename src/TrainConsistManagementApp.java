@@ -1,8 +1,3 @@
-package TrainConsistManagementApp.src;/*
- * UC17 - Sort Bogie Names Using Arrays.sort()
- * Train Consist Management App
- */
-
 import java.util.Arrays;
 
 public class TrainConsistManagementApp {
