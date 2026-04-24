@@ -1,5 +1,3 @@
-package TrainConsistManagementApp.src;
-
 import java.util.ArrayList;
 import java.util.List;
 
